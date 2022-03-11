@@ -9,6 +9,7 @@ from basicsr.train import parse_options
 from basicsr.utils import (get_env_info, get_root_logger, get_time_str,
                            make_exp_dirs)
 from basicsr.utils.options import dict2str
+from basicsr.utils.img_util import img2tensor
 
 class VedioSet(torch.utils.data.Dataset):
 
@@ -30,7 +31,10 @@ class VedioSet(torch.utils.data.Dataset):
         return video_seq_windows
 
     def __getitem__(self, index):
-        self.video_seq_windows[index]
+        imgs = [img / 255.0 for img in self.video_seq_windows[index]]
+        imgs = img2tensor(imgs, bgr2rgb=True, float32=True)
+        imgs = torch.stack(imgs, dim=0)
+        return imgs
 
     def __len__(self, ):
         return len(self.video_seq_windows)
