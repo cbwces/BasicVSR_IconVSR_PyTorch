@@ -50,14 +50,14 @@ class VidTestDataset(data.Dataset):
             'max_idx': [],
         }
         self.lq_frames, self.gt_frames = {}, {}
-                
+
         self.clip_list = os.listdir(osp.abspath(self.gt_root))
         self.clip_list.sort()
         for clip_name in self.clip_list:
             lq_frames_path = osp.join(self.lq_root, clip_name)
             lq_frames_path = sorted(
                     list(scandir(lq_frames_path, full_path=True)))
-            
+
             gt_frames_path = osp.join(self.gt_root, clip_name)
             gt_frames_path = sorted(
                     list(scandir(gt_frames_path, full_path=True)))

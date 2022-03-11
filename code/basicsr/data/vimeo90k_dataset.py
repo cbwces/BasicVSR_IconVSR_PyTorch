@@ -93,7 +93,7 @@ class Vimeo90KDataset(data.Dataset):
         if self.is_lmdb:
             img_gt_path = f'{key}/im4'
         else:
-            img_gt_path = self.gt_root / clip / seq / 'im4.png'
+            img_gt_path = f'{self.gt_root}/{clip}/{seq}/im4.png'
         img_bytes = self.file_client.get(img_gt_path, 'gt')
         img_gt = imfrombytes(img_bytes, float32=True)
 
@@ -103,7 +103,7 @@ class Vimeo90KDataset(data.Dataset):
             if self.is_lmdb:
                 img_lq_path = f'{clip}/{seq}/im{neighbor}'
             else:
-                img_lq_path = self.lq_root / clip / seq / f'im{neighbor}.png'
+                img_lq_path = f'{self.lq_root}/{clip}/{seq}/im{neighbor}.png'
             img_bytes = self.file_client.get(img_lq_path, 'lq')
             img_lq = imfrombytes(img_bytes, float32=True)
             img_lqs.append(img_lq)

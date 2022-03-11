@@ -1,8 +1,9 @@
+import sys
 import torch
 import torch.nn.functional as F 
 from torch import nn 
 
-from einops import rearrange
+sys.path.append("/home/cbw/BasicVSR_IconVSR_PyTorch/code/")
 from basicsr.models.archs.spynet_arch import SpyNet
 from basicsr.models.archs.arch_util import ResidualBlockNoBN, flow_warp, make_layer 
 
@@ -75,7 +76,7 @@ class BasicVSR(nn.Module):
             'The height and width of input should be at least 64, '
             f'but got {h} and {w}.')
         
-        forward_flow, backward_flow = self.comp_flow(lrs)
+        forward_flow, backward_flow = self.comp_flow(lrs) # 双向光流计算
 
         # forward_flow = rearrange(forward_flow, 'n t c h w -> t n h w c').contiguous()
         # backward_flow = rearrange(backward_flow, 'n t c h w -> t n h w c').contiguous()
